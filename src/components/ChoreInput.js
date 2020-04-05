@@ -57,9 +57,10 @@ export class ChoreInput {
       EnteredChores.Child = enteredChild;
       EnteredChores.Chore = enteredChore;
       EnteredChores.Note = enteredNotes;
-      // returned the EnteredChores Object From The Method
-      // This Does Create An Object In An Object, Kinda It's fine for me but you may want to change it
+      //returned the EnteredChores Object From The Method
+      //This Does Create An Object In An Object, Kinda It's fine for me but you may want to change it
       return { EnteredChores };
+      // return [enteredChild, enteredChore, enteredNotes];
     }
   }
 
@@ -70,6 +71,8 @@ export class ChoreInput {
     const userInputValues = this._UserInputsToObject();
     // Another If check checking for the object
     if (userInputValues) {
+      // const [child, chore, note] = userInputValues;
+      // choreState.addChore(child, chore, note);
       // Set The UserInput Object Into localStorage with ChoreObject Key
       // This Does Create An Object In An Object Kinda It's fine for me but you may want to change it
       localStorage.setItem('ChoreObject', JSON.stringify(userInputValues));
