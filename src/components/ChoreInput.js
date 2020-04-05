@@ -28,25 +28,66 @@ export class ChoreInput {
     this.noteInputElement = this.FormFromTheTemplate.querySelector('#notes');
 
     // Putting the methods in the constructor so they are registered when the class is instatiated
-    this.addEventListeners();
-    this.renderContent();
+    this._addEventListeners();
+    this._renderContent();
+  }
+
+  // Clear All The Inputs When Form Is Submitted Set All Fields To Empty String
+  _clearFormInputs() {
+    this.childInputElement.value = '';
+    this.choreInputElement.value = '';
+    this.noteInputElement.value = '';
+  }
+
+  // Put All The User Inputs Into An Object
+  _UserInputsToObject() {
+    // Set Shorter Values to Variables
+    let enteredChild = this.childInputElement.value;
+    let enteredChore = this.choreInputElement.value;
+    let enteredNotes = this.noteInputElement.value;
+
+    // Create An Empty Object
+    const EnteredChores = {};
+
+    // Weak Form Validation
+    if (!enteredChild || !enteredChore || !enteredNotes) {
+      alert('Inputs Must Not Be Empty');
+      // Set The Values To A Property On The Created Empty Object
+    } else {
+      EnteredChores.Child = enteredChild;
+      EnteredChores.Chore = enteredChore;
+      EnteredChores.Note = enteredNotes;
+      // returned the EnteredChores Object From The Method
+      // This Does Create An Object In An Object, Kinda It's fine for me but you may want to change it
+      return { EnteredChores };
+    }
   }
 
   // The method that gets called when the form is submitted
-  submitTheForm(event) {
+  _submitTheForm(event) {
     event.preventDefault();
+    // Create A shorter constant from the UserInputs
+    const userInputValues = this._UserInputsToObject();
+    // Another If check checking for the object
+    if (userInputValues) {
+      // Set The UserInput Object Into localStorage with ChoreObject Key
+      // This Does Create An Object In An Object Kinda It's fine for me but you may want to change it
+      localStorage.setItem('ChoreObject', JSON.stringify(userInputValues));
+      // Running the clearFormInputs method To clear the inputs after submiting and setting to local storage
+      this._clearFormInputs();
+    }
   }
 
-  addEventListeners() {
+  _addEventListeners() {
     // Adding an eventListener for the submition of the form
     this.FormFromTheTemplate.addEventListener(
       'submit',
-      this.submitTheForm.bind(this)
+      this._submitTheForm.bind(this)
     );
   }
 
   // The renderContent method is what renderes the content, so i call the method in the constructor
-  renderContent() {
+  _renderContent() {
     // insertAdjacentElement method inserts a given element node at a given position relative to the element it is invoked upon.
     this.RootAppDiv.insertAdjacentElement(
       //  Just inside the element, before its first child.

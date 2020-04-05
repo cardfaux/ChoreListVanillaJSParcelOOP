@@ -17,6 +17,6 @@
     "no-multi-assign": "warn",
     "no-redeclare": "warn",
     "no-unreachable": "warn",
-    "no-unused-vars": "off"
+    "no-unused-vars": "warn"
   }
 }
