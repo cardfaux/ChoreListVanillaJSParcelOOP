@@ -1,0 +1,29 @@
+{
+	"name": "chorelistparcel",
+	"version": "1.0.0",
+	"description": "ChoreList",
+	"main": "app.js",
+	"scripts": {
+		"dev": "rm -rf ./development && rm -rf ./.cache && parcel public/index.html --out-dir development -p 3000",
+		"build": "parcel build public/index.html --out-dir production --public-url ./"
+	},
+	"author": "James Hagood",
+	"license": "MIT",
+	"devDependencies": {
+		"@babel/core": "^7.9.0",
+		"@babel/plugin-transform-runtime": "^7.9.0",
+		"@babel/runtime-corejs2": "^7.9.2",
+		"parcel-bundler": "^1.12.4"
+	},
+	"browserslist": [
+		"last 2 Chrome versions",
+		"last 2 ChromeAndroid versions",
+		"last 2 Firefox versions",
+		"last 2 FirefoxAndroid versions",
+		"last 2 Safari versions",
+		"last 2 iOS versions",
+		"last 2 Edge versions",
+		"last 2 Opera versions",
+		"last 2 OperaMobile versions"
+	]
+}

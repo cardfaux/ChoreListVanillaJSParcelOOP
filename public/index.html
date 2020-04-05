@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../styles/app.css" />
+		<script defer src="../src/app.js"></script>
+		<title>TypeScript-Parcel-Basic-SetUp</title>
+	</head>
+
+	<body>
+		<!-- FORM FOR THE TEMPLATE START -->
+		<template id="chore-input">
+			<div class="form-container">
+				<form>
+					<div class="form-control">
+						<label for="children">Choose A Child:</label>
+						<select id="children">
+							<option value=""></option>
+							<option value="Wesleigh">Wesleigh</option>
+							<option value="Alexis">Alexis</option>
+							<option value="Tommy">Tommy</option>
+						</select>
+					</div>
+					<div class="form-control">
+						<label for="chore">Chore (min.5, max.50): Characters</label>
+						<input type="text" id="chore" />
+					</div>
+					<div class="form-control">
+						<label for="notes">Notes (min.5, max.50): Characters</label>
+						<textarea id="notes" rows="2"></textarea>
+					</div>
+					<button type="submit">ADD CHORE</button>
+				</form>
+			</div>
+		</template>
+		<!-- FORM FOR THE TEMPLATE END -->
+
+		<!-- LIST ITEM FOR CHORE ITEM TEMPLATE START -->
+		<template id="single-chore">
+			<li draggable="true">
+				<h2></h2>
+				<p></p>
+			</li>
+		</template>
+		<!-- LIST ITEM FOR CHORE ITEM TEMPLATE END -->
+
+		<!-- UNORDERED LIST FOR CHORE ITEMS TEMPLATE START -->
+		<template id="chore-list">
+			<section class="chores">
+				<header>
+					<h2></h2>
+				</header>
+				<ul></ul>
+			</section>
+		</template>
+		<!-- UNORDERED LIST FOR CHORE ITEMS TEMPLATE END -->
+
+		<!-- MAIN DIV TO INJECT THE OTHER TEMPLATES START -->
+		<div id="app"></div>
+		<!-- MAIN DIV TO INJECT THE OTHER TEMPLATES END -->
+	</body>
+</html>
