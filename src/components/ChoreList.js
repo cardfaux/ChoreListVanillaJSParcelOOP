@@ -26,7 +26,8 @@ export class ChoreList {
     this._renderDynamicContent();
   }
 
-  // The Method Responsible For Rendering The Dynamic Portions Of The Content
+  // The Method Responsible For Rendering The Dynamic Portions Of The ChoreLists
+  // When ChoreList Is Instatiated With Childs Name A ChoreList For Each child will be added
   _renderDynamicContent() {
     const choreListId = `${this.Child}-chores-list`;
     this.SectionFromTheTemplate.querySelector('ul').id = choreListId;

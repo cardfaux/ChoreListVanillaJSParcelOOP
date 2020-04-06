@@ -39,28 +39,20 @@ export class ChoreInput {
     this.noteInputElement.value = '';
   }
 
-  // Put All The User Inputs Into An Object
-  _UserInputsToObject() {
+  // Put All The User Inputs Into An Array
+  _UserInputsToArray() {
     // Set Shorter Values to Variables
     let enteredChild = this.childInputElement.value;
     let enteredChore = this.choreInputElement.value;
     let enteredNotes = this.noteInputElement.value;
-
-    // Create An Empty Object
-    const EnteredChores = {};
 
     // Weak Form Validation
     if (!enteredChild || !enteredChore || !enteredNotes) {
       alert('Inputs Must Not Be Empty');
       // Set The Values To A Property On The Created Empty Object
     } else {
-      EnteredChores.Child = enteredChild;
-      EnteredChores.Chore = enteredChore;
-      EnteredChores.Note = enteredNotes;
-      //returned the EnteredChores Object From The Method
-      //This Does Create An Object In An Object, Kinda It's fine for me but you may want to change it
-      return { EnteredChores };
-      // return [enteredChild, enteredChore, enteredNotes];
+      // Returns an array so far
+      return [enteredChild, enteredChore, enteredNotes];
     }
   }
 
@@ -68,14 +60,10 @@ export class ChoreInput {
   _submitTheForm(event) {
     event.preventDefault();
     // Create A shorter constant from the UserInputs
-    const userInputValues = this._UserInputsToObject();
-    // Another If check checking for the object
+    const userInputValues = this._UserInputsToArray();
+    // Another If check checking for the inputs
     if (userInputValues) {
-      // const [child, chore, note] = userInputValues;
-      // choreState.addChore(child, chore, note);
-      // Set The UserInput Object Into localStorage with ChoreObject Key
-      // This Does Create An Object In An Object Kinda It's fine for me but you may want to change it
-      localStorage.setItem('ChoreObject', JSON.stringify(userInputValues));
+      console.log(userInputValues);
       // Running the clearFormInputs method To clear the inputs after submiting and setting to local storage
       this._clearFormInputs();
     }
