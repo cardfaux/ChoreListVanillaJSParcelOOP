@@ -66,6 +66,7 @@ export class ChoreInput {
     // Another If check checking for the inputs
     if (Array.isArray(userInputValues)) {
       const [child, chore, note] = userInputValues;
+      // Calls the addChore methed on the choreState Class, The choreState instantiates the ChoreState Class in the ChoreState class
       choreState.addChore(child, chore, note);
       // Running the clearFormInputs method To clear the inputs after submiting and setting to local storage
       this._clearFormInputs();

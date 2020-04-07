@@ -24,7 +24,16 @@ export class ChoreList {
     this.SectionFromTheTemplate.id = `${this.Child}-chores`;
 
     choreState.addListener((chores) => {
-      this.assignedChores = chores;
+      const relevantChores = chores.filter((chore) => {
+        if (this.Child === 'Wesleigh') {
+          return chore.child === 'Wesleigh';
+        } else if (this.Child === 'Alexis') {
+          return chore.child === 'Alexis';
+        } else {
+          return chore.child === 'Tommy';
+        }
+      });
+      this.assignedChores = relevantChores;
       this._renderChores();
     });
 
