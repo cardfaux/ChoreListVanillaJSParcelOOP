@@ -1,3 +1,5 @@
+import { choreState } from '../state/ChoreState';
+
 // This Class Is Responsible For Rendering The ChoreList To The Screen
 export class ChoreList {
   // When I Instanciate This Class I want the form to be rendered
@@ -21,9 +23,23 @@ export class ChoreList {
     // This just adds the Status - chores id to it for styling when it is rendered
     this.SectionFromTheTemplate.id = `${this.Child}-chores`;
 
+    choreState.addListener((chores) => {
+      this.assignedChores = chores;
+      this._renderChores();
+    });
+
     // Putting the methods in the constructor so they are registered when the class is instatiated
     this._renderContent();
     this._renderDynamicContent();
+  }
+
+  _renderChores() {
+    const listEl = document.getElementById(`${this.Child}-chores-list`);
+    for (const chrItem of this.assignedChores) {
+      const listItem = document.createElement('li');
+      listItem.textContent = chrItem.chore;
+      listEl.appendChild(listItem);
+    }
   }
 
   // The Method Responsible For Rendering The Dynamic Portions Of The ChoreLists

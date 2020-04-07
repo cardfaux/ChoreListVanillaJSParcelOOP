@@ -1,3 +1,5 @@
+import { choreState } from '../state/ChoreState';
+
 // This Class Is Responsible For Rendering The Form To The Screen
 export class ChoreInput {
   // When I Instanciate This Class I want the form to be rendered
@@ -62,8 +64,9 @@ export class ChoreInput {
     // Create A shorter constant from the UserInputs
     const userInputValues = this._UserInputsToArray();
     // Another If check checking for the inputs
-    if (userInputValues) {
-      console.log(userInputValues);
+    if (Array.isArray(userInputValues)) {
+      const [child, chore, note] = userInputValues;
+      choreState.addChore(child, chore, note);
       // Running the clearFormInputs method To clear the inputs after submiting and setting to local storage
       this._clearFormInputs();
     }
