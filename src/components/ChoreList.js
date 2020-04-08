@@ -4,6 +4,7 @@ import { choreState } from '../state/ChoreState';
 export class ChoreList {
   // When I Instanciate This Class I want the form to be rendered
   constructor(Child) {
+    // Setting an empty array to push the chores into
     this.assignedChores = [];
     // Setting this.Child to the Passed In Childs Name
     this.Child = Child;
@@ -23,7 +24,9 @@ export class ChoreList {
     // This just adds the Status - chores id to it for styling when it is rendered
     this.SectionFromTheTemplate.id = `${this.Child}-chores`;
 
+    // This addListener function recieves a list of chores when it is called from inside the choreState
     choreState.addListener((chores) => {
+      // Assigning the chore to it's specific box
       const relevantChores = chores.filter((chore) => {
         if (this.Child === 'Wesleigh') {
           return chore.child === 'Wesleigh';
@@ -33,7 +36,9 @@ export class ChoreList {
           return chore.child === 'Tommy';
         }
       });
+      // After all the if statments will be assigned to assignedChores
       this.assignedChores = relevantChores;
+      // Calling the _renderChores Method
       this._renderChores();
     });
 
@@ -42,8 +47,13 @@ export class ChoreList {
     this._renderDynamicContent();
   }
 
+  // Gets called from inside the choreState.addListener function Renders the List Item, each chore
   _renderChores() {
+    // Get the element by it's ID
     const listEl = document.getElementById(`${this.Child}-chores-list`);
+    // When a second item is added makes sure the html is reset
+    listEl.innerHTML = '';
+    // For Of loop adding the LI to the list
     for (const chrItem of this.assignedChores) {
       const listItem = document.createElement('li');
       listItem.textContent = chrItem.chore;
