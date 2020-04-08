@@ -1,13 +1,14 @@
 class ChoreState {
   constructor() {
     // Empty arrays to push functions and chores
-    this.listeners = [];
+    this.functions = [];
+
     this.chores = [];
   }
 
   // Function to just push other functions to the array
-  addListener(listenerFn) {
-    this.listeners.push(listenerFn);
+  addFunction(listener) {
+    this.functions.push(listener);
   }
 
   // These values get passed in when this method is called
@@ -21,13 +22,14 @@ class ChoreState {
 
     // Push the newChore into the empty chores array
     this.chores.push(newChore);
-    // For Of loop in the listeners array
-    for (const listenerFn of this.listeners) {
-      // Pass the chores to the listener function use slice to return a copy of it
-      listenerFn(this.chores.slice());
+
+    // For Of loop in the functions array
+    for (const listener of this.functions) {
+      // Pass the chores to the listener function
+      listener(this.chores);
     }
   }
 }
 
 // Exported global constant to use these methods inside other classes
-export const choreState = new ChoreState();
+export const instanceOfChoreState = new ChoreState();

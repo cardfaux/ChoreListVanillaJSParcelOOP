@@ -1,37 +1,20 @@
-import { choreState } from '../state/ChoreState';
+import { instanceOfChoreState } from '../state/ChoreState';
+import { Component } from './Component';
 
 // This Class Is Responsible For Rendering The Form To The Screen
-export class ChoreInput {
+export class ChoreInput extends Component {
   // When I Instanciate This Class I want the form to be rendered
   constructor() {
-    // So In the constructor I reach out to the template id to get the template Id for the form
-    this.HTMLTemplateElement = document.getElementById('chore-input');
-    // I reach out to the APP div, the div it is too be rendered in
-    this.RootAppDiv = document.getElementById('app');
-
-    // Then get the content of the template with document.importedNode and get the content of the template
-    const ContentOfTheTemplate = document.importNode(
-      this.HTMLTemplateElement.content,
-      // The true being passed is for a deep clone
-      true
-    );
-    // I can't render the template but the content of the template
-    this.FormFromTheTemplate = ContentOfTheTemplate.firstElementChild;
-    // This just adds the user-input id to it for styling when it is rendered
-    this.FormFromTheTemplate.id = 'user-input';
+    super('chore-input', 'app', true, 'user-input');
 
     // Get access to the childInputElement on the form
-    this.childInputElement = this.FormFromTheTemplate.querySelector(
-      '#children'
-    );
+    this.childInputElement = this.element.querySelector('#children');
     // Get access to the choreInputElement on the form
-    this.choreInputElement = this.FormFromTheTemplate.querySelector('#chore');
-    // Get access to the noteInputElement on the form
-    this.noteInputElement = this.FormFromTheTemplate.querySelector('#notes');
+    this.choreInputElement = this.element.querySelector('#chore');
+    this.noteInputElement = this.element.querySelector('#notes');
 
     // Putting the methods in the constructor so they are registered when the class is instatiated
     this._addEventListeners();
-    this._renderContent();
   }
 
   // Clear All The Inputs When Form Is Submitted Set All Fields To Empty String
@@ -46,15 +29,15 @@ export class ChoreInput {
     // Set Shorter Values to Variables
     let enteredChild = this.childInputElement.value;
     let enteredChore = this.choreInputElement.value;
-    let enteredNotes = this.noteInputElement.value;
+    let enteredNote = this.noteInputElement.value;
 
     // Weak Form Validation
-    if (!enteredChild || !enteredChore || !enteredNotes) {
+    if (!enteredChild || !enteredChore) {
       alert('Inputs Must Not Be Empty');
       // Set The Values To A Property On The Created Empty Object
     } else {
       // Returns an array so far
-      return [enteredChild, enteredChore, enteredNotes];
+      return [enteredChild, enteredChore, enteredNote];
     }
   }
 
@@ -67,7 +50,7 @@ export class ChoreInput {
     if (Array.isArray(userInputValues)) {
       const [child, chore, note] = userInputValues;
       // Calls the addChore methed on the choreState Class to pass these values to it
-      choreState.addChore(child, chore, note);
+      instanceOfChoreState.addChore(child, chore, note);
       // Running the clearFormInputs method To clear the inputs after submiting and setting to local storage
       this._clearFormInputs();
     }
@@ -75,19 +58,6 @@ export class ChoreInput {
 
   _addEventListeners() {
     // Adding an eventListener for the submition of the form
-    this.FormFromTheTemplate.addEventListener(
-      'submit',
-      this._submitTheForm.bind(this)
-    );
-  }
-
-  // The renderContent method is what renderes the content, so i call the method in the constructor
-  _renderContent() {
-    // insertAdjacentElement method inserts a given element node at a given position relative to the element it is invoked upon.
-    this.RootAppDiv.insertAdjacentElement(
-      //  Just inside the element, before its first child.
-      'afterbegin',
-      this.FormFromTheTemplate
-    );
+    this.element.addEventListener('submit', this._submitTheForm.bind(this));
   }
 }
