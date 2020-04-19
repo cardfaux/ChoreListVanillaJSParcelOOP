@@ -1,10 +1,11 @@
 import { instanceOfChoreState } from '../state/ChoreState';
-import { Component } from './Component';
+import { BaseChoreComponent } from './BaseChoreComponent';
 
 // This Class Is Responsible For Rendering The Form To The Screen
-export class ChoreInput extends Component {
+export class ChoreInput extends BaseChoreComponent {
   // When I Instanciate This Class I want the form to be rendered
   constructor() {
+    // Everything the base class needs
     super('chore-input', 'app', true, 'user-input');
 
     // Get access to the childInputElement on the form
@@ -47,7 +48,7 @@ export class ChoreInput extends Component {
     // Create A shorter constant from the UserInputs
     const userInputValues = this._UserInputsToArray();
     // Another If check checking for the inputs
-    if (Array.isArray(userInputValues)) {
+    if (userInputValues) {
       const [child, chore, note] = userInputValues;
       // Calls the addChore methed on the choreState Class to pass these values to it
       instanceOfChoreState.addChore(child, chore, note);

@@ -1,7 +1,10 @@
-import { Component } from './Component';
+import { BaseChoreComponent } from './BaseChoreComponent';
+import { instanceOfChoreState } from '../state/ChoreState';
 
-export class ChoreItem extends Component {
+// The class to render each chore item
+export class ChoreItem extends BaseChoreComponent {
   constructor(hostId, chore) {
+    // Everything the base class needs
     super('single-chore', hostId, false, chore.id);
     this.chore = chore;
 
@@ -15,14 +18,19 @@ export class ChoreItem extends Component {
     this.element.querySelector('button').textContent = 'DONE';
   }
 
-  _submitTheForm(event) {
-    event.preventDefault();
-    const elem = document.getElementById(this.chore.id);
-    elem.remove();
+  // This method deletes the selected chore and removes it from the array in the state
+  _deleteTheChore() {
+    const element = document.getElementById(this.chore.id);
+    // Removes the element from the DOM
+    element.remove();
+    const choresArray = instanceOfChoreState.chores;
+    const removeIndex = choresArray.map((item) => item.id).indexOf(element);
+    // Removes it from the Array
+    choresArray.splice(removeIndex, 1);
   }
 
   _addEventListeners() {
-    // Adding an eventListener for the submition of the form
-    this.element.addEventListener('click', this._submitTheForm.bind(this));
+    // Adding an eventListener for the submission of the form
+    this.element.addEventListener('click', this._deleteTheChore.bind(this));
   }
 }

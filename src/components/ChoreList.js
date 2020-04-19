@@ -1,8 +1,8 @@
 import { instanceOfChoreState } from '../state/ChoreState';
-import { Component } from './Component';
+import { BaseChoreComponent } from './BaseChoreComponent';
 import { ChoreItem } from './ChoreItem';
 
-export class ChoreList extends Component {
+export class ChoreList extends BaseChoreComponent {
   constructor(Child) {
     super('chore-list', 'app', false, `${Child}-chores`);
 
@@ -10,6 +10,7 @@ export class ChoreList extends Component {
 
     this.Child = Child;
 
+    // This is what determines the box that the chore goes ito
     instanceOfChoreState.addFunction((chores) => {
       const childChoresArray = chores.filter((chore) => {
         if (this.Child === 'Wesleigh') {
